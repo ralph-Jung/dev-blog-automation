@@ -1,0 +1,33 @@
+{
+  "name": "blog-automation-mcp",
+  "version": "2.0.0",
+  "description": "Notion MCP to Velog blog automation system",
+  "main": "dist/lib/config.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "ts-node",
+    "test:config": "ts-node lib/config.ts",
+    "test:title": "ts-node lib/title-formatter.ts",
+    "test:parser": "ts-node lib/content-parser.ts",
+    "test:thumbnail": "ts-node lib/thumbnail-manager.ts",
+    "test:velog": "ts-node lib/velog-client.ts"
+  },
+  "keywords": [
+    "notion",
+    "velog",
+    "blog",
+    "automation",
+    "mcp",
+    "typescript"
+  ],
+  "author": "jhj030811",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.7.0"
+  }
+}
