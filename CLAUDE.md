@@ -19,7 +19,7 @@
 3. `lib/content-parser.ts`로 Notion 블록 → 마크다운 변환
 4. 서브에이전트로 본문 보강 (도입부 + 정리 추가)
 5. `lib/velog-client.ts`로 페이로드 구성
-6. Velog MCP `write_post`로 발행
+6. `lib/velog-client.ts`의 `publishToVelog()`로 Velog GraphQL API 직접 호출하여 발행
 
 **Notion 페이지 구조**:
 
@@ -53,4 +53,4 @@
 **Dependencies**:
 
 - Notion MCP (`@notionhq/notion-mcp-server`)
-- Velog MCP (`velog-mcp`)
+- Velog GraphQL API (`v2.velog.io/graphql`) - 직접 호출

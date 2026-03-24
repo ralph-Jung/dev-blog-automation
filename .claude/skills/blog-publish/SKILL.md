@@ -62,7 +62,7 @@ https://raw.githubusercontent.com/{username}/dev-blog-automation/main/thumbnails
 2. `lib/velog-client.ts`의 `publishToVelog()`로 Velog GraphQL API 직접 호출하여 발행
 3. 발행 결과 URL을 사용자에게 반환
 
-**주의**: Velog MCP의 `write_post`는 한글 인코딩 버그가 있으므로 사용하지 않는다. 반드시 `lib/velog-client.ts`의 직접 GraphQL 호출을 사용할 것.
+**주의**: Velog 발행은 반드시 `lib/velog-client.ts`의 `publishToVelog()`로 직접 GraphQL API를 호출할 것. (velog-mcp는 제거됨)
 
 ## 주의사항
 

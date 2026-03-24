@@ -134,7 +134,7 @@ Claude Code에서 자연어로 요청:
 
 주요 실패 지점은 [GOTCHAS.md](.claude/skills/blog-publish/GOTCHAS.md)에 기록되어 있습니다.
 
-- Velog MCP `write_post`는 한글 인코딩 버그가 있어 사용하지 않음
+- velog-mcp 패키지는 한글 인코딩 버그로 제거, Velog GraphQL API 직접 호출 사용
 - Velog GraphQL 엔드포인트는 `v2.velog.io/graphql` (v3 아님)
 - Velog 인증은 `Cookie: access_token=...` 방식 (Bearer 아님)
 - 썸네일은 GitHub Raw URL로 호스팅 (레포 public 필수)
