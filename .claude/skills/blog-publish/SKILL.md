@@ -42,6 +42,8 @@ Notion "개발 블로그 작성 주제" 페이지에서 주제를 검색하여 V
 
 **에이전트 B - 썸네일 (캐시 miss일 때만):**
 1. `thumbnails/` 폴더에 해당 카테고리 이미지가 있으면 스킵 (캐시 hit)
+   - **주의**: 썸네일 캐시 확인 시 `Glob("thumbnails/*")` 패턴은 한글 경로에서 실패할 수 있음. `Glob("**/*.png")`로 검색하거나 `Bash("ls thumbnails/")`로 확인할 것
+   - 카테고리 → 파일명 매핑은 `lib/thumbnail-manager.ts`의 `CATEGORY_META`를 참조 (예: 운영체제 → `operatingsystem.png`, 네트워크 → `network*.png`)
 2. 없으면 **사용자에게 원하는 썸네일 색상을 질문**한 뒤 Gemini로 생성
    - 기존 썸네일을 참고 이미지로 첨부
    - 생성된 이미지를 영문 파일명으로 `thumbnails/`에 저장
@@ -62,7 +64,9 @@ https://raw.githubusercontent.com/{username}/dev-blog-automation/main/thumbnails
 2. `lib/velog-client.ts`의 `publishToVelog()`로 Velog GraphQL API 직접 호출하여 발행
 3. 발행 결과 URL을 사용자에게 반환
 
-**주의**: Velog 발행은 반드시 `lib/velog-client.ts`의 `publishToVelog()`로 직접 GraphQL API를 호출할 것. (velog-mcp는 제거됨)
+**주의**:
+- Velog 발행은 반드시 `lib/velog-client.ts`의 `publishToVelog()`로 직접 GraphQL API를 호출할 것. (velog-mcp는 제거됨)
+- lib 모듈 호출 시 `ts-node -e` 인라인 스크립트 + `require()` 사용 금지. `strict: true` 환경에서 타입 에러 발생함. 반드시 `lib/` 내 `.ts` 파일을 만들어 `import`로 호출하거나, 불가피할 경우 `--transpileOnly` 옵션 사용
 
 ## 주의사항
 

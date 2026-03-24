@@ -87,6 +87,30 @@ https://raw.githubusercontent.com/ralph-Jung/dev-blog-automation/main/thumbnails
 
 ---
 
+## 8. 썸네일 캐시 확인 시 Glob 패턴 실패 (2026-03-24)
+
+**증상**: `Glob("thumbnails/*")` 패턴으로 검색하면 "No files found" 반환. 실제로는 `thumbnails/operatingsystem.png`, `thumbnails/networkthumbnail.png` 등 파일이 존재함.
+
+**원인**: 프로젝트 경로에 한글(`개발 블로그 mcp`)이 포함되어 있어 Glob 도구의 `thumbnails/*` 직접 경로 패턴이 매칭에 실패함. `**/*.png` 재귀 패턴은 동작함.
+
+**해결**: 썸네일 캐시 확인 시 `Glob("**/*.png")`로 검색하거나 `Bash("ls thumbnails/")`를 사용.
+
+**교훈**: 한글 경로 프로젝트에서는 Glob의 직접 경로 패턴(`폴더/*`)이 불안정함. `**/*.png` 같은 재귀 패턴은 정상 동작하므로 이를 사용할 것.
+
+---
+
+## 9. ts-node -e 인라인 스크립트에서 타입 에러 (2026-03-24)
+
+**증상**: `npx ts-node -e "const { publishToVelog } = require('./lib/velog-client'); ..."` 실행 시 `TS7006: Parameter implicitly has an 'any' type` 에러 발생
+
+**원인**: `tsconfig.json`에 `strict: true` 설정이 있고, `require()`는 반환 타입이 `any`이므로 `.then((result) => ...)` 콜백의 파라미터 타입을 추론할 수 없음. `include`가 `lib/**/*.ts`만 포함하므로 인라인 스크립트는 strict 체크 대상이지만 타입 정보가 없음.
+
+**해결**: 인라인 `-e` 스크립트 대신, `lib/` 디렉토리에 임시 실행 스크립트 `.ts` 파일을 생성하여 `import`로 타입을 자동 추론하게 하거나, 불가피할 경우 `--transpileOnly` 옵션을 사용.
+
+**교훈**: 이 프로젝트에서 Velog 발행 등 lib 모듈을 호출할 때는 반드시 `import`로 타입이 추론되는 `.ts` 파일을 통해 실행할 것. `require()` + 인라인 스크립트 조합은 strict 모드에서 타입 에러를 유발함.
+
+---
+
 ## 7. 미리보기 축약 금지 (2026-03-24)
 
 **증상**: 발행 전 미리보기를 보여줄 때 본문을 `...`으로 축약하여 사용자가 전체 내용을 확인할 수 없었음
