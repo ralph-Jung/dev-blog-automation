@@ -115,7 +115,7 @@ function generatePlaceholderUrl(title: string): string {
 }
 
 /** GitHub raw URL 베이스 (레포 push 후 유효) */
-const GITHUB_RAW_BASE = "https://raw.githubusercontent.com/jhj030811/dev-blog-automation/main/thumbnails";
+const GITHUB_RAW_BASE = "https://raw.githubusercontent.com/ralph-Jung/dev-blog-automation/main/thumbnails";
 
 export interface ThumbnailResult {
   /** 블로그 본문에 삽입할 URL (GitHub raw URL) */
